@@ -4,7 +4,7 @@ import 'package:kaku/screens/profile/profile_screen.dart';
 import 'package:kaku/screens/splash/splash_screen.dart';
 import 'package:kaku/theme.dart';
 
-void main() {
+Future<void> main() async{
   runApp(MyApp());
 }
 

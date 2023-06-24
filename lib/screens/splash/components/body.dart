@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kaku/constants.dart';
 import 'package:kaku/screens/sign_in/sign_in_screen.dart';
 import 'package:kaku/size_config.dart';
+import 'package:kaku/sharedprefrences.dart';
 
 // This is the best practice
 import '../components/splash_content.dart';
@@ -14,21 +15,31 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+  Future<String?> sudah_intro = readLocalStorage('sudah_intro');
   List<Map<String, String>> splashData = [
+    {"text": "Selamat Datang di Kaku", "image": "assets/images/splash_1.png"},
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
-      "image": "assets/images/splash_1.png"
-    },
-    {
-      "text":
-          "We help people conect with store \naround United State of America",
+      "text": "Kami menawarkan beberapa menu\nyang siap menikmati perut anda",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "Kami menawarkan kemudahan untuk memesan",
       "image": "assets/images/splash_3.png"
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (sudah_intro == 'sudah') {
+      setState(() {
+        Navigator.pushNamed(context, SignInScreen.routeName);
+      });
+    } else {
+      setLocalStorage('sudah_intro', 'sudah');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,7 +79,7 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     DefaultButton(
-                      text: "Continue",
+                      text: "Lanjutkan",
                       press: () {
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },

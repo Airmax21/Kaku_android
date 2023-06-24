@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/size_config.dart';
 
-const endpoint = 'http://localhost/kaku/index.php/';
+const kEndpoint = 'http://localhost/kaku/index.php/api';
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
