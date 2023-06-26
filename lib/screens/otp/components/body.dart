@@ -17,10 +17,10 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
-                "OTP Verification",
+                "Verifikasi OTP",
                 style: headingStyle,
               ),
-              Text("We sent your code to +1 898 860 ***"),
+              Text("Kami mengirim OTP ke Email"),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
@@ -44,12 +44,12 @@ class Body extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("This code will expired in "),
+        Text("OTP akan kadaluarsa dalam "),
         TweenAnimationBuilder(
-          tween: Tween(begin: 30.0, end: 0.0),
-          duration: Duration(seconds: 30),
+          tween: Tween(begin: 300.0, end: 0.0),
+          duration: Duration(seconds: 300),
           builder: (_, dynamic value, child) => Text(
-            "00:${value.toInt()}",
+            "${value.toInt()} detik",
             style: TextStyle(color: kPrimaryColor),
           ),
         ),

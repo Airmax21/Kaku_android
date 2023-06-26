@@ -1,12 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'package:kaku/constants.dart';
+import 'package:kaku/sharedprefrences.dart';
 
-Future<void> signUpPost(String username, String pass, String nama, String email,
+Future<bool> signUpPost(String username, String pass, String nama, String email,
     String alamat, String no_telp) async {
-  var url = Uri.parse('${kEndpoint}'); 
-  var headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }; 
+  var url = Uri.parse('${kEndpoint}signup');
+  var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var body = {
     'username': '${username}',
     'pass': '${pass}',
@@ -14,13 +13,26 @@ Future<void> signUpPost(String username, String pass, String nama, String email,
     'email': '${email}',
     'alamat': '${alamat}',
     'no_telp': '${no_telp}'
-  }; 
+  };
 
   var response = await http.post(url, headers: headers, body: body);
 
   if (response.statusCode == 200) {
-    print('Response: ${response.body}');
+    await setLocalStorage('username', username);
+    return true;
   } else {
-    print('Error: ${response.statusCode}');
+    return false;
+  }
+}
+
+Future<bool> cekUsername(String username) async {
+  var url = Uri.parse('${kEndpoint}signup/cek_username');
+  var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  var body = {'username': '${username}'};
+  var response = await http.post(url, headers: headers, body: body);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
   }
 }

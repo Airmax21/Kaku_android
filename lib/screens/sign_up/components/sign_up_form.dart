@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kaku/components/custom_surfix_icon.dart';
 import 'package:kaku/components/default_button.dart';
 import 'package:kaku/components/form_error.dart';
-import 'package:kaku/screens/complete_profile/complete_profile_screen.dart';
+import 'package:kaku/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../controllers/sign_up.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _SignUpFormState extends State<SignUpForm> {
   String? nama;
   String? email;
   String? alamat;
-  String? not_telp;
+  String? no_telp;
   bool remember = false;
   final List<String?> errors = [];
 
@@ -44,20 +45,35 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildUsernameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildNamaFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildConformPassFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildAlamatFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildNoTelpFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
-            press: () {
+            text: "Lanjutkan",
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                final isRequestSuccess = await cekUsername(username!);
+                if (isRequestSuccess) {
+                  await signUpPost(
+                      username!, password!, nama!, email!, alamat!, no_telp!);
+                  Navigator.pushNamed(context, OtpScreen.routeName);
+                } else {
+                  addError(error: kUsernameUsed);
+                  _formKey.currentState!.validate();
+                }
               }
             },
           ),
@@ -89,8 +105,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Re-enter your password",
+        labelText: "Konfirmasi Password",
+        hintText: "${kPassNullError}",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -123,7 +139,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Password",
-        hintText: "Enter your password",
+        hintText: "${kPassNullError}",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -156,7 +172,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
-        hintText: "Enter your email",
+        hintText: "${kEmailNullError}",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -179,9 +195,6 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value!.isEmpty) {
           addError(error: kUsernameInput);
           return "";
-        } else if (cekUsername(value)) {
-          addError(error: kUsernameUsed);
-          return "";
         }
         return null;
       },
@@ -191,7 +204,66 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildNamaFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.name,
+      onSaved: (newValue) => nama = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "Fullname",
+        hintText: "${kNamelNullError}",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildAlamatFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.streetAddress,
+      onSaved: (newValue) => alamat = newValue,
+      decoration: InputDecoration(
+        labelText: "Alamat",
+        hintText: "${kAddressNullError}",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon:
+            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildNoTelpFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => no_telp = newValue,
+      decoration: InputDecoration(
+        labelText: "No Telepon",
+        hintText: "${kPhoneNumberNullError}",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
     );
   }

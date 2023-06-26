@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/size_config.dart';
 
-const kEndpoint = 'http://localhost/kaku/index.php/api';
+const kEndpoint = 'http://192.168.100.56/kaku/index.php/api/';
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
@@ -26,6 +26,7 @@ const defaultDuration = Duration(milliseconds: 250);
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
 const String kEmailNullError = "Masukkan email anda";
 const String kInvalidEmailError = "Masukkan email anda sekali lagi";
 const String kPassNullError = "Masukkan password";
@@ -37,6 +38,7 @@ const String kPhoneNumberInvalid = "Nomor telepon tidak valid !";
 const String kAddressNullError = "Masukkan alamat anda";
 const String kUsernameInput = "Masukkan username anda";
 const String kUsernameUsed = "Username tidak tersedia !";
+const String kOTPInvalid = "OTP yang anda masukkan salah";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
