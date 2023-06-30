@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kaku/screens/home/home_screen.dart';
 import 'package:kaku/screens/profile/profile_screen.dart';
+import 'package:kaku/screens/scan/scan_screen.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -56,7 +57,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                    Navigator.pushNamed(context, ScanScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset(

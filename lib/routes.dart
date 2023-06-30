@@ -7,6 +7,7 @@ import 'package:kaku/screens/home/home_screen.dart';
 import 'package:kaku/screens/login_success/login_success_screen.dart';
 import 'package:kaku/screens/otp/otp_screen.dart';
 import 'package:kaku/screens/profile/profile_screen.dart';
+import 'package:kaku/screens/scan/scan_screen.dart';
 import 'package:kaku/screens/sign_in/sign_in_screen.dart';
 import 'package:kaku/screens/splash/splash_screen.dart';
 
@@ -26,4 +27,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  ScanScreen.routeName:(context) => ScanScreen(),
 };

@@ -5,6 +5,7 @@ import 'package:kaku/screens/splash/splash_screen.dart';
 import 'package:kaku/theme.dart';
 
 Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

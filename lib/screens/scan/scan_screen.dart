@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:kaku/components/coustom_bottom_nav_bar.dart';
 import 'package:kaku/enums.dart';
@@ -9,8 +10,8 @@ class ScanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
+      body: QRCodeScannerScreen(),
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.scan),
     );
   }
 }
