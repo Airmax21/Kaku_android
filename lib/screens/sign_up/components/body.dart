@@ -30,7 +30,8 @@ class Body extends StatelessWidget {
                   'Dengan melanjutkan ini, anda telah setuju dengan\nkebijakan kami',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
-                )
+                ),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
               ],
             ),
           ),

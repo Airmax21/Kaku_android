@@ -19,6 +19,8 @@ Future<bool> signUpPost(String username, String pass, String nama, String email,
 
   if (response.statusCode == 200) {
     await setLocalStorage('username', username);
+    await setLocalStorage('email', email);
+    await setLocalStorage('fullname', nama);
     return true;
   } else {
     return false;

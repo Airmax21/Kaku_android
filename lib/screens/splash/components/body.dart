@@ -15,7 +15,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
-  Future<String?> sudah_intro = readLocalStorage('sudah_intro');
   List<Map<String, String>> splashData = [
     {"text": "Selamat Datang di Kaku", "image": "assets/images/splash_1.png"},
     {
@@ -31,12 +30,16 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    if (sudah_intro == 'sudah') {
+    Future<String?> sudahIntro = readLocalStorage('sudahIntro');
+    debugPrint('tes2');
+    if (sudahIntro == 'sudah') {
+      debugPrint('tes1');
       setState(() {
         Navigator.pushNamed(context, SignInScreen.routeName);
       });
     } else {
-      setLocalStorage('sudah_intro', 'sudah');
+      debugPrint('tes');
+      setLocalStorage('sudahIntro', 'sudah');
     }
   }
 

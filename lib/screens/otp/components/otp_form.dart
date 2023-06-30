@@ -139,6 +139,7 @@ class _OtpFormState extends State<OtpForm> {
           DefaultButton(
             text: "Verifikasi",
             press: () async {
+              _formKey.currentState!.save();
               var kode_otp = pin1! + pin2! + pin3! + pin4!;
               final isSuccess = await cekOtp(kode_otp);
               if (isSuccess) {

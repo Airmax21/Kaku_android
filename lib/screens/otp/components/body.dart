@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/constants.dart';
+import 'package:kaku/screens/otp/controllers/otp.dart';
 import 'package:kaku/size_config.dart';
 
 import 'otp_form.dart';
@@ -20,13 +21,13 @@ class Body extends StatelessWidget {
                 "Verifikasi OTP",
                 style: headingStyle,
               ),
-              Text("Kami mengirim OTP ke Email"),
+              Text("Kami mengirim kode OTP ke email anda"),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               GestureDetector(
-                onTap: () {
-                  // OTP code resend
+                onTap: () async {
+                  await reSendOtp();
                 },
                 child: Text(
                   "Resend OTP Code",
@@ -52,6 +53,9 @@ class Body extends StatelessWidget {
             "${value.toInt()} detik",
             style: TextStyle(color: kPrimaryColor),
           ),
+          onEnd: () async {
+            await expOtp();
+          },
         ),
       ],
     );

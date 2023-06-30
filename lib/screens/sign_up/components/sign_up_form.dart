@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kaku/components/custom_surfix_icon.dart';
 import 'package:kaku/components/default_button.dart';
 import 'package:kaku/components/form_error.dart';
+import 'package:kaku/helper/keyboard.dart';
 import 'package:kaku/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
@@ -63,6 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
           DefaultButton(
             text: "Lanjutkan",
             press: () async {
+              KeyboardUtil.hideKeyboard(context);
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 final isRequestSuccess = await cekUsername(username!);

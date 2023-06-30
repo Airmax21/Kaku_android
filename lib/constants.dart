@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/size_config.dart';
 
-const kEndpoint = 'http://192.168.100.56/kaku/index.php/api/';
-const kPrimaryColor = Color(0xFFFF7643);
+const kEndpoint = 'http://kaku.biz.id/index.php/api/';
+const kEndpointGambar = 'http://kaku.biz.id/assets/img/menu/';
+const kPrimaryColor = Color.fromARGB(255, 67, 111, 255);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -39,7 +40,7 @@ const String kAddressNullError = "Masukkan alamat anda";
 const String kUsernameInput = "Masukkan username anda";
 const String kUsernameUsed = "Username tidak tersedia !";
 const String kOTPInvalid = "OTP yang anda masukkan salah";
-
+const String kLoginInvalid = "Username atau Password Salah";
 final otpInputDecoration = InputDecoration(
   contentPadding:
       EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
