@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/components/product_card.dart';
 import 'package:kaku/models/Product.dart';
-import 'package:kaku/screens/home/controllers/favorite_nemu.dart';
+import 'package:kaku/screens/home/controllers/favorite_menu.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -25,7 +25,7 @@ class _FavoriteMenu extends State<FavoriteMenu> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Popular Products", press: () {}),
+          child: SectionTitle(title: "Menu Disarankan", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(

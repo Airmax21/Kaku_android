@@ -1,4 +1,4 @@
-package com.example.kaku
+package com.softech.kaku
 
 import io.flutter.embedding.android.FlutterActivity
 

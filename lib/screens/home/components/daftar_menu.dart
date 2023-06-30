@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/components/product_card.dart';
 import 'package:kaku/models/Product.dart';
-import 'package:kaku/screens/home/controllers/favorite_nemu.dart';
+import 'package:kaku/screens/home/controllers/daftar_menu.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -12,7 +12,7 @@ class DaftarMenu extends StatefulWidget {
 }
 
 class _DaftarMenu extends State<DaftarMenu> {
-  var data1 = favoriteGet();
+  var data1 = daftarGet();
 
   @override
   void initState() {
@@ -26,37 +26,22 @@ class _DaftarMenu extends State<DaftarMenu> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Popular Products", press: () {}),
+          child: SectionTitle(title: "Daftar Menu", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Column(
-            children: [
-              ...List.generate(
-                3,
-                (x) {
-                  debugPrint(x.toString());
-                  // return Row(
-                  //   children: [
-                  //     ...List.generate(
-                  //       2,
-                  //       (index) {
-                  //         var max = data1.length;
-                  //         if ((index * (x + 1)) < max)
-                  //           return ProductCard(product: data1[index * (x + 1)]);
-
-                  //         return SizedBox(
-                  //             width: getProportionateScreenWidth(
-                  //                 0)); // here by default width and height is 0
-                  //       },
-                  //     ),
-                  //     SizedBox(width: getProportionateScreenWidth(20)),
-                  //     SizedBox(height: SizeConfig.screenHeight * 0.08)
-                  //   ],
-                  // );
-                },
-              ),
+            children: <Widget>[
+              for (int i = 0; i < data1.length; i += 2)
+                Row(
+                  children: [
+                    ProductCard(product: data1[i]),
+                    if (i + 1 < data1.length)
+                      ProductCard(product: data1[i + 1]),
+                    SizedBox(width: getProportionateScreenWidth(20)),
+                  ],
+                ),
             ],
           ),
         )

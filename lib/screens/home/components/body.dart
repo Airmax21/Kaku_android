@@ -36,7 +36,8 @@ class _Body extends State<Body> {
             HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             SambutanUser(),
-            //FavoriteMenu(),
+            SizedBox(height: getProportionateScreenWidth(10)),
+            FavoriteMenu(),
             SizedBox(height: getProportionateScreenWidth(30)),
             DaftarMenu(),
             SizedBox(height: SizeConfig.screenHeight * 0.08)

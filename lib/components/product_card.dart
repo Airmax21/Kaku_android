@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kaku/models/Product.dart';
 import 'package:kaku/screens/details/details_screen.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -9,7 +10,7 @@ import '../size_config.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
-    this.width = 140,
+    this.width = 150,
     this.aspectRetio = 1.02,
     required this.product,
   }) : super(key: key);
@@ -20,7 +21,9 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(
+          left: getProportionateScreenWidth(20),
+          bottom: getProportionateScreenHeight(30)),
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
@@ -60,7 +63,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\Rp. ${product.price}",
+                    "${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ').format(int.parse(product.price))}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,

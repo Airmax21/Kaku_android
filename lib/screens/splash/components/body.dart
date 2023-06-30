@@ -3,6 +3,7 @@ import 'package:kaku/constants.dart';
 import 'package:kaku/screens/sign_in/sign_in_screen.dart';
 import 'package:kaku/size_config.dart';
 import 'package:kaku/sharedprefrences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // This is the best practice
 import '../components/splash_content.dart';
@@ -15,6 +16,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+  late String sudahIntro;
   List<Map<String, String>> splashData = [
     {"text": "Selamat Datang di Kaku", "image": "assets/images/splash_1.png"},
     {
@@ -27,20 +29,25 @@ class _BodyState extends State<Body> {
     },
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    Future<String?> sudahIntro = readLocalStorage('sudahIntro');
-    debugPrint('tes2');
+  Future<void> getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? sudahIntro1 = prefs.getString('sudahIntro');
+    setState(() {
+      sudahIntro = sudahIntro1 ?? '';
+    });
     if (sudahIntro == 'sudah') {
-      debugPrint('tes1');
       setState(() {
         Navigator.pushNamed(context, SignInScreen.routeName);
       });
     } else {
-      debugPrint('tes');
       setLocalStorage('sudahIntro', 'sudah');
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override
