@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:kaku/components/rounded_icon_btn.dart';
 import 'package:kaku/models/Product.dart';
+import 'package:kaku/sharedprefrences.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ColorDots extends StatelessWidget {
+class ColorDots extends StatefulWidget {
   const ColorDots({
     Key? key,
     required this.product,
   }) : super(key: key);
 
   final Product product;
+  @override
+  _ColorDots createState() => _ColorDots();
+}
+
+class _ColorDots extends State<ColorDots> {
+  int jumlah = 0;
+
+  @override
+  void initState() {
+    readjumlah();
+    super.initState();
+  }
+
+  void readjumlah() async {
+    String? jumlah1 = await readLocalStorage('jumlah');
+    jumlah = int.parse(jumlah1.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,50 +48,44 @@ class ColorDots extends StatelessWidget {
           //   ),
           // ),
           Spacer(),
+          Spacer(),
+          Text(
+            'Jumlah',
+            style: TextStyle(
+              fontSize: getProportionateScreenWidth(20),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,
-            press: () {},
+            press: () async {
+              setState(() {
+                if (jumlah > 0) {
+                  jumlah -= 1;
+                }
+              });
+              await setLocalStorage('jumlah', jumlah.toString());
+              String? tes = await readLocalStorage('jumlah');
+              debugPrint(tes);
+            },
           ),
+          SizedBox(width: getProportionateScreenWidth(20)),
+          Text(jumlah.toString()),
           SizedBox(width: getProportionateScreenWidth(20)),
           RoundedIconBtn(
             icon: Icons.add,
             showShadow: true,
-            press: () {},
+            press: () async {
+              setState(() {
+                jumlah = jumlah + 1;
+              });
+              await setLocalStorage('jumlah', jumlah.toString());
+              String? tes = await readLocalStorage('jumlah');
+              debugPrint(tes);
+            },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ColorDot extends StatelessWidget {
-  const ColorDot({
-    Key? key,
-    required this.color,
-    this.isSelected = false,
-  }) : super(key: key);
-
-  final Color color;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 2),
-      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-      height: getProportionateScreenWidth(40),
-      width: getProportionateScreenWidth(40),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border:
-            Border.all(color: isSelected ? kPrimaryColor : Colors.transparent),
-        shape: BoxShape.circle,
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
       ),
     );
   }

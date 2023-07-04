@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kaku/models/Product.dart';
 import 'package:kaku/screens/details/details_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:kaku/sharedprefrences.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -27,11 +28,15 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(product: product),
-          ),
+          onTap: () async {
+            if (await readLocalStorage('order_id') != null) {
+              Navigator.pushNamed(
+                context,
+                DetailsScreen.routeName,
+                arguments: ProductDetailsArguments(product: product),
+              );
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -48,7 +53,7 @@ class ProductCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.network(product.images[0],
-                          cacheHeight: 300, cacheWidth: 300),
+                          cacheHeight: 400, cacheWidth: 400),
                     ),
                   ),
                 ),

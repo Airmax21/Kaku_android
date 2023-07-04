@@ -9,3 +9,8 @@ Future<void> setLocalStorage(String key, String value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString(key, value);
 }
+
+Future<void> deleteLocalStorage(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove(key);
+}

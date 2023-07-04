@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kaku/models/Cart.dart';
 
 import '../../../constants.dart';
@@ -21,12 +22,11 @@ class CartCard extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
+                child: Image.network(cart.product.images[0],
+                    cacheHeight: 400, cacheWidth: 400),
               ),
-              child: Image.asset(cart.product.images[0]),
             ),
           ),
         ),
@@ -42,7 +42,8 @@ class CartCard extends StatelessWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${cart.product.price}",
+                text:
+                    "${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ').format(int.parse(cart.product.price))}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
@@ -51,7 +52,10 @@ class CartCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 5),
+            Text(
+                '${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ').format((int.parse(cart.product.price) * cart.numOfItem))}')
           ],
         )
       ],

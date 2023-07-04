@@ -27,6 +27,8 @@ const defaultDuration = Duration(milliseconds: 250);
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp pesanValidatorRegExp =
+    RegExp(r"http://kaku.biz.id/index.php/pesan/meja/no/+[0-9]");
 
 const String kEmailNullError = "Masukkan email anda";
 const String kInvalidEmailError = "Masukkan email anda sekali lagi";

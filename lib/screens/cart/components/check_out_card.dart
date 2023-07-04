@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:kaku/components/default_button.dart';
+import 'package:kaku/screens/cart/controllers/cart.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -37,28 +39,28 @@ class CheckoutCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset("assets/icons/receipt.svg"),
-                ),
-                Spacer(),
-                Text("Add voucher code"),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                )
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Container(
+            //       padding: EdgeInsets.all(10),
+            //       height: getProportionateScreenWidth(40),
+            //       width: getProportionateScreenWidth(40),
+            //       decoration: BoxDecoration(
+            //         color: Color(0xFFF5F6F9),
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       child: SvgPicture.asset("assets/icons/receipt.svg"),
+            //     ),
+            //     Spacer(),
+            //     Text("Add voucher code"),
+            //     const SizedBox(width: 10),
+            //     Icon(
+            //       Icons.arrow_forward_ios,
+            //       size: 12,
+            //       color: kTextColor,
+            //     )
+            //   ],
+            // ),
             SizedBox(height: getProportionateScreenHeight(20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +70,8 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text:
+                            "${NumberFormat.currency(locale: 'id_ID', symbol: 'Rp. ').format((int.parse(harga.toString())))}",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
