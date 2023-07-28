@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:kaku/components/default_button.dart';
 import 'package:kaku/screens/cart/controllers/cart.dart';
+import 'package:kaku/screens/checkout_success/checkout_success_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -81,7 +82,11 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-                    press: () {},
+                    press: () async {
+                      await checkout();
+                      Navigator.pushNamed(
+                          context, CheckoutSuccessScreen.routeName);
+                    },
                   ),
                 ),
               ],

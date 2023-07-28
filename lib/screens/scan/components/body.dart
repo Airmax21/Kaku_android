@@ -31,6 +31,13 @@ class _Body extends State<Body> {
     _initializeCamera();
   }
 
+  @override
+  void dispose() {
+    _qrViewController.dispose();
+    _cameraController.dispose();
+    super.dispose();
+  }
+
   Future<void> _initializeCamera() async {
     camera = await availableCameras();
     _cameraController = CameraController(camera[0], ResolutionPreset.max);
@@ -69,7 +76,7 @@ class _Body extends State<Body> {
         if (pesanValidatorRegExp.hasMatch(scanData.code.toString())) {
           bool status = await pesanGet(scanData.code.toString());
           if (status) {
-            dispose();
+            _cameraController.dispose();
             Navigator.pushNamed(context, PesanScreen.routeName);
           }
         }
@@ -99,13 +106,6 @@ class _Body extends State<Body> {
         _cameraController.setZoomLevel(_zoomLevel);
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _qrViewController.dispose();
-    _cameraController.dispose();
-    super.dispose();
   }
 
   @override

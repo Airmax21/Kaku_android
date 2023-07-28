@@ -57,3 +57,17 @@ Future<void> hargaFetch() async {
     harga = data['grand_total'];
   }
 }
+
+Future<bool> checkout() async {
+  var url = Uri.parse('${kEndpoint}cartget/checkout');
+  var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+  String? order_id = await readLocalStorage('order_id');
+  var body = {'order_id': '${order_id}'};
+  var response = await http.post(url, headers: headers, body: body);
+  var data = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
+}

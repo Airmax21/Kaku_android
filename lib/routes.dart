@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:kaku/screens/cart/cart_screen.dart';
+import 'package:kaku/screens/checkout_success/checkout_success_screen.dart';
 import 'package:kaku/screens/complete_profile/complete_profile_screen.dart';
 import 'package:kaku/screens/details/details_screen.dart';
 import 'package:kaku/screens/forgot_password/forgot_password_screen.dart';
@@ -30,4 +31,5 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => ProfileScreen(),
   ScanScreen.routeName: (context) => ScanScreen(),
   PesanScreen.routeName: (context) => PesanScreen(),
+  CheckoutSuccessScreen.routeName: (context) => CheckoutSuccessScreen(),
 };
